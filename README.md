@@ -51,16 +51,15 @@ Note that the above command also takes care for downloading the included Git sub
 
 There comes an installation script with this reposity that does all the steps described below: `install.sh` This script compiles the driver, installs the binary and configuration files, and installs the ControlBlock service. 
 
-To run the quick installation, change into the ControlBlockService2 directory and call the script:
+To run the quick installation, you just need to call this one line from the Raspbian console
 
 ```bash
-cd ControlBlockService2
-sudo ./install.sh
+wget -O - https://raw.githubusercontent.com/petrockblog/ControlBlockService2/master/install.sh | sudo bash
 ```
 
 Here is a video of a typical quick installation procedure:
 
-[![Video of the quick installation procedure for the ControlBlock](https://img.youtube.com/vi/JHM_osExNWI/0.jpg)](https://www.youtube.com/watch?v=JHM_osExNWI)
+[![asciicast](https://asciinema.org/a/lOGtRU99jT0MDulxSc3ZGuPRd.png)](https://asciinema.org/a/lOGtRU99jT0MDulxSc3ZGuPRd)
 
 ## Building and Installation
 

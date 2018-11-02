@@ -20,43 +20,37 @@
  * in future versions.
  */
 
-#ifndef SNESGAMEPAD_H
-#define SNESGAMEPAD_H
+#ifndef NESGAMEPAD_H
+#define NESGAMEPAD_H
 
 #include <stdint.h>
 #include <uinput/IUInputFactory.h>
-// #include "hal/IDigitalIn.h"
-// #include "hal/IDigitalOut.h"
 #include "hal/DigitalIO.h"
 #include "InputDevice.h"
 
-class SNESGamepad: public InputDevice
+class NESGamepad: public InputDevice
 {
 public:
     /* bit masks for checking the button states for SNES controllers */
-    static const uint16_t GPAD_SNES_B = 0x01;
-    static const uint16_t GPAD_SNES_Y = 0x02;
-    static const uint16_t GPAD_SNES_SELECT = 0x04;
-    static const uint16_t GPAD_SNES_START = 0x08;
-    static const uint16_t GPAD_SNES_UP = 0x10;
-    static const uint16_t GPAD_SNES_DOWN = 0x20;
-    static const uint16_t GPAD_SNES_LEFT = 0x40;
-    static const uint16_t GPAD_SNES_RIGHT = 0x80;
-    static const uint16_t GPAD_SNES_A = 0x100;
-    static const uint16_t GPAD_SNES_X = 0x200;
-    static const uint16_t GPAD_SNES_L = 0x400;
-    static const uint16_t GPAD_SNES_R = 0x800;
-    static const uint16_t GPAD_SNES_RESET = 0x1000;
+    static const uint16_t GPAD_NES_A = 0x01;
+    static const uint16_t GPAD_NES_B = 0x02;
+    static const uint16_t GPAD_NES_SELECT = 0x04;
+    static const uint16_t GPAD_NES_START = 0x08;
+    static const uint16_t GPAD_NES_UP = 0x10;
+    static const uint16_t GPAD_NES_DOWN = 0x20;
+    static const uint16_t GPAD_NES_LEFT = 0x40;
+    static const uint16_t GPAD_NES_RIGHT = 0x80;
+    static const uint16_t GPAD_NES_RESET = 0x1000;
 
-    SNESGamepad(IUInputFactory& uiFactoryRef, IDigitalIO& digitalIORef);
-    ~SNESGamepad() = default;
+    NESGamepad(IUInputFactory& uiFactoryRef, IDigitalIO& digitalIORef);
+    ~NESGamepad() = default;
 
     virtual void initialize(InputDevice::Channel_e channel);
     virtual void update();
 
 private:
     static const uint32_t STROBEDELAY_US = 4u;
-    static const uint32_t NUMBER_OF_BUTTONS = 12u;
+    static const uint32_t NUMBER_OF_BUTTONS = 8u;
 
     static const IDigitalIO::DIO_Channel_e DIO_CHANNEL_P1_VCC = IDigitalIO::DIO_CHANNEL_P2_RIGHT;
     static const IDigitalIO::DIO_Channel_e DIO_CHANNEL_P2_VCC = IDigitalIO::DIO_CHANNEL_P2_LEFT;
@@ -73,7 +67,7 @@ private:
     IUInputDevice* gamepad;
     IUInputDevice* keyboard;
 
-    uint16_t getSNESControllerState();
+    uint16_t getNESControllerState();
 };
 
 #endif

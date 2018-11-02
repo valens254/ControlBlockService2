@@ -32,9 +32,13 @@ void DigitalIO::configureDevice(DIO_Device mode)
         mcp1.setPinMode(10, MCP23S17PI::DIR_INPUT);
         mcp1.setPullupMode(10, MCP23S17PI::PULLUP_ENABLED);
 
-        // for reset button
+        // for ESC key
         mcp2.setPinMode(7, MCP23S17PI::DIR_INPUT);
         mcp2.setPullupMode(7, MCP23S17PI::PULLUP_ENABLED);
+
+        // for F1 key
+        mcp2.setPinMode(6, MCP23S17PI::DIR_INPUT);
+        mcp2.setPullupMode(6, MCP23S17PI::PULLUP_ENABLED);
 
         mcp1.setPinMode(12, MCP23S17PI::DIR_OUTPUT);
         mcp1.setPinMode(13, MCP23S17PI::DIR_OUTPUT);
@@ -120,7 +124,7 @@ void DigitalIO::configureDevice(DIO_Device mode)
 
         break;
     default:
-      std::cout << "DigitalIn: Unknown device type" << std::endl;
+      std::cout << "DigitalIO: Unknown device type" << std::endl;
       throw 50;
     }
 }
@@ -173,7 +177,7 @@ IDigitalIO::DIO_Level_e DigitalIO::getLevel(DIO_Channel_e channel)
     case DIO_CHANNEL_P2_DOWN: returnLevel = mcp1.digitalRead(12) == MCP23S17PI::LEVEL_HIGH ? DIO_LEVEL_LOW : DIO_LEVEL_HIGH;
         break;
     case DIO_CHANNEL_P2_SW1: returnLevel = mcp1.digitalRead(11) == MCP23S17PI::LEVEL_HIGH ? DIO_LEVEL_LOW : DIO_LEVEL_HIGH;
-        break;
+    	break;
     case DIO_CHANNEL_P2_SW2: returnLevel = mcp1.digitalRead(10) == MCP23S17PI::LEVEL_HIGH ? DIO_LEVEL_LOW : DIO_LEVEL_HIGH;
         break;
     case DIO_CHANNEL_P2_SW3: returnLevel = mcp1.digitalRead(9) == MCP23S17PI::LEVEL_HIGH ? DIO_LEVEL_LOW : DIO_LEVEL_HIGH;
@@ -196,6 +200,8 @@ IDigitalIO::DIO_Level_e DigitalIO::getLevel(DIO_Channel_e channel)
         break;
     case DIO_CHANNEL_P2_B: returnLevel = mcp2.digitalRead(8) == MCP23S17PI::LEVEL_HIGH ? DIO_LEVEL_LOW : DIO_LEVEL_HIGH;
         break;
+    default:
+        throw 51;
     }
 
     return returnLevel;
@@ -279,14 +285,6 @@ void DigitalIO::setLevel(DIO_Channel_e channel, DIO_Level_e level)
     case DIO_CHANNEL_P2_A: mcp2.digitalWrite(9, mcpLevel);
         break;
     case DIO_CHANNEL_P2_B: mcp2.digitalWrite(8, mcpLevel);
-        break;
-    case DIO_CHANNEL_P1P2_CLOCK: mcp1.digitalWrite(12, mcpLevel);
-        break;
-    case DIO_CHANNEL_P1P2_STROBE: mcp1.digitalWrite(13, mcpLevel);
-        break;
-    case DIO_CHANNEL_P2_VCC: mcp1.digitalWrite(14, mcpLevel);
-        break;
-    case DIO_CHANNEL_P1_VCC: mcp1.digitalWrite(15, mcpLevel);
         break;
     case DIO_CHANNEL_GENESIS_P1_SELECT: mcp1.digitalWrite(6, mcpLevel);
         break;
